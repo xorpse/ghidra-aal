@@ -684,7 +684,7 @@ public class FunctionManagerDB implements ManagerDB, FunctionManager {
 		return new FunctionIteratorDB(asv, forward);
 	}
 
-	private class FunctionFilteredIterator extends FilteredIterator<Function>
+	public class FunctionFilteredIterator extends FilteredIterator<Function>
 			implements FunctionIterator {
 		public FunctionFilteredIterator(Iterator<Function> it) {
 			super(it, functionFilter);

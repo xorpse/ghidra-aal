@@ -25,6 +25,7 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
+import java.lang.Thread;
 
 import javax.swing.*;
 
@@ -54,7 +55,7 @@ public class ResourceManager {
 	private static List<String> defaultSearchPaths;
 	private static List<String> testSearchPaths;
 
-	private static ClassLoader classLoader = ResourceManager.class.getClassLoader();
+  private static ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
 	/**
 	 * Finds a resource with a given name. This method returns null if no

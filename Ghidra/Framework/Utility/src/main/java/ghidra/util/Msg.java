@@ -27,6 +27,7 @@ import java.awt.Component;
 public class Msg {
 	private static ErrorLogger errorLogger = new DefaultErrorLogger();
 	private static ErrorDisplay errorDisplay = new ConsoleErrorDisplay();
+	private static boolean disableLogging = false;
 
 	private Msg() {
 		// static utility class
@@ -40,6 +41,10 @@ public class Msg {
 	 */
 	public static void setErrorLogger(ErrorLogger errLogger) {
 		errorLogger = errLogger;
+	}
+
+	public static void setDisableLogging(boolean logging) {
+		disableLogging = logging;
 	}
 
 	/**
@@ -60,7 +65,7 @@ public class Msg {
 	 * 			the message to print
 	 */
 	public static void out(Object message) {
-		System.err.println(message);
+		if (!disableLogging) System.err.println(message);
 	}
 
 	/**
@@ -74,7 +79,7 @@ public class Msg {
 	 *            the details of the message
 	 */
 	public static void trace(Object originator, Object message) {
-		errorLogger.trace(originator, message);
+		if (!disableLogging) errorLogger.trace(originator, message);
 	}
 
 	/**
@@ -91,7 +96,7 @@ public class Msg {
 	 *            the Throwable that describes the cause of the error
 	 */
 	public static void trace(Object originator, Object message, Throwable throwable) {
-		errorLogger.trace(originator, message, throwable);
+		if (!disableLogging) errorLogger.trace(originator, message, throwable);
 	}
 
 	/**
@@ -103,7 +108,7 @@ public class Msg {
 	 *            the details of the message
 	 */
 	public static void debug(Object originator, Object message) {
-		errorLogger.debug(originator, message);
+		if (!disableLogging) errorLogger.debug(originator, message);
 	}
 
 	/**
@@ -118,7 +123,7 @@ public class Msg {
 	 *            the Throwable that describes the cause of the error
 	 */
 	public static void debug(Object originator, Object message, Throwable throwable) {
-		errorLogger.debug(originator, message, throwable);
+		if (!disableLogging) errorLogger.debug(originator, message, throwable);
 	}
 
 	/**
@@ -131,7 +136,7 @@ public class Msg {
 	 *            the details of the message
 	 */
 	public static void info(Object originator, Object message) {
-		errorLogger.info(originator, message);
+		if (!disableLogging) errorLogger.info(originator, message);
 	}
 
 	/**
@@ -147,7 +152,7 @@ public class Msg {
 	 *            the Throwable that describes the cause of the error
 	 */
 	public static void info(Object originator, Object message, Throwable throwable) {
-		errorLogger.info(originator, message, throwable);
+		if (!disableLogging) errorLogger.info(originator, message, throwable);
 	}
 
 	/**
@@ -166,7 +171,7 @@ public class Msg {
 	 */
 	public static void showInfo(Object originator, Component parent, String title, Object message) {
 		if (SystemUtilities.isInHeadlessMode()) {
-			Msg.info(originator, message);
+			if (!disableLogging) Msg.info(originator, message);
 		}
 		else {
 			errorDisplay.displayInfoMessage(errorLogger, originator, parent, title, message);
@@ -183,7 +188,7 @@ public class Msg {
 	 *            the details of the message
 	 */
 	public static void warn(Object originator, Object message) {
-		errorLogger.warn(originator, message);
+		if (!disableLogging) errorLogger.warn(originator, message);
 	}
 
 	/**
@@ -198,7 +203,7 @@ public class Msg {
 	 *            a Throwable for printing a stack trace
 	 */
 	public static void warn(Object originator, Object message, Throwable throwable) {
-		errorLogger.warn(originator, message, throwable);
+		if (!disableLogging) errorLogger.warn(originator, message, throwable);
 	}
 
 	/**
@@ -217,7 +222,7 @@ public class Msg {
 	 */
 	public static void showWarn(Object originator, Component parent, String title, Object message) {
 		if (SystemUtilities.isInHeadlessMode()) {
-			Msg.warn(originator, message);
+			if (!disableLogging) Msg.warn(originator, message);
 		}
 		else {
 			errorDisplay.displayWarningMessage(errorLogger, originator, parent, title, message,
@@ -244,7 +249,7 @@ public class Msg {
 	public static void showWarn(Object originator, Component parent, String title, Object message,
 			Throwable throwable) {
 		if (SystemUtilities.isInHeadlessMode()) {
-			Msg.warn(originator, message, throwable);
+			if (!disableLogging) Msg.warn(originator, message, throwable);
 		}
 		else {
 			errorDisplay.displayWarningMessage(errorLogger, originator, parent, title, message,
@@ -263,7 +268,7 @@ public class Msg {
 	 *            the details of the message
 	 */
 	public static void error(Object originator, Object message) {
-		errorLogger.error(originator, message);
+		if (!disableLogging) errorLogger.error(originator, message);
 	}
 
 	/**
@@ -279,7 +284,7 @@ public class Msg {
 	 *            the Throwable that describes the cause of the error
 	 */
 	public static void error(Object originator, Object message, Throwable throwable) {
-		errorLogger.error(originator, message, throwable);
+		if (!disableLogging) errorLogger.error(originator, message, throwable);
 	}
 
 	/**
@@ -300,7 +305,7 @@ public class Msg {
 	public static void showError(Object originator, Component parent, String title,
 			Object message) {
 		if (SystemUtilities.isInHeadlessMode()) {
-			Msg.error(originator, message);
+			if (!disableLogging) Msg.error(originator, message);
 		}
 		else {
 			errorDisplay.displayErrorMessage(errorLogger, originator, parent, title, message, null);
@@ -327,7 +332,7 @@ public class Msg {
 	public static void showError(Object originator, Component parent, String title, Object message,
 			Throwable throwable) {
 		if (SystemUtilities.isInHeadlessMode()) {
-			Msg.error(originator, message, throwable);
+			if (!disableLogging) Msg.error(originator, message, throwable);
 		}
 		else {
 			errorDisplay.displayErrorMessage(errorLogger, originator, parent, title, message,
